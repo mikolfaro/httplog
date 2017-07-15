@@ -1,7 +1,7 @@
 require "net/http"
 require "logger"
 require "benchmark"
-require "colorize"
+require 'rainbow/ext/string'
 
 module HttpLog
   LOG_PREFIX = "[httplog] ".freeze
