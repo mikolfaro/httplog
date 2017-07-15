@@ -211,8 +211,8 @@ describe HttpLog do
             expect(log).to be_colorized
           end
 
-          it "should rainbow output with modifiers" do
-            HttpLog.configure { |c| c.color = %i[bright red] }
+          it "should rainbow color and background output" do
+            HttpLog.configure { |c| c.color = { color: :red, background: :white } }
             adapter.send_get_request
             expect(log).to be_colorized
           end

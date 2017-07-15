@@ -96,7 +96,7 @@ You can color the output to make it stand out in your logfile:
 
 ```ruby
 HttpLog.configure do |config|
-  config.color = {color: :black, background: [:light, :red]}
+  config.color = {color: :black, background: :red}
 end
 ```
 
