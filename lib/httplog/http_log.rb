@@ -1,7 +1,7 @@
 require "net/http"
 require "logger"
 require "benchmark"
-require "colorize"
+require 'rainbow/ext/string'
 
 module HttpLog
   LOG_PREFIX = "[httplog] ".freeze
@@ -114,7 +114,9 @@ module HttpLog
 
     def colorize(msg)
       return msg unless config.color
-      msg.send(:colorize, config.color)
+      config.color.inject(msg) do |msg_tmp, entry|
+        msg_tmp.send(entry[0], entry[1])
+      end
     end
 
     private

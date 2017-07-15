@@ -15,10 +15,10 @@ module HttpLog
                   :compact_log,
                   :url_whitelist_pattern,
                   :url_blacklist_pattern,
-                  :color,
                   :prefix_data_lines,
                   :prefix_response_lines,
                   :prefix_line_numbers
+    attr_reader   :color
 
     def initialize
       @enabled               = true
@@ -48,5 +48,12 @@ module HttpLog
       self.send("#{key.to_s}=", value)
     end
 
+    def color=(color)
+      if color.is_a? Hash
+        @color = color.select{|key, _| %i[color background].include? key}
+      else
+        @color = {color: color}
+      end
+    end
   end
 end

@@ -31,6 +31,6 @@ Gem::Specification.new do |s|
   # s.add_development_dependency "log4r"
   s.add_development_dependency "rake"
   s.add_development_dependency "listen", ["~> 3.0.8"]
-  s.add_dependency 'colorize'
+  s.add_dependency 'rainbow'
   s.add_dependency 'rack'
 end

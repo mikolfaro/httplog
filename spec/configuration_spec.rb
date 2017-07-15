@@ -19,5 +19,17 @@ module HttpLog
         expect(config.compact_log).to eq(true)
       end
     end
+
+    describe "#color=" do
+      it "converts symbol to hash" do
+        config.color = :red
+        expect(config.color).to eq({color: :red})
+      end
+
+      it "drops hash extra keys" do
+        config.color = {color: :red, background: :white, not: :safe}
+        expect(config.color).to eq({color: :red, background: :white})
+      end
+    end
   end
 end

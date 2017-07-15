@@ -47,7 +47,7 @@ describe HttpLog do
             expect(log).to include(HttpLog::LOG_PREFIX + "Status: 200")
             expect(log).to include(HttpLog::LOG_PREFIX + "Benchmark: ")
             expect(log).to include(HttpLog::LOG_PREFIX + "Response:#{adapter.expected_response_body}")
-            expect(log.colorized?).to be_falsey
+            expect(log).to_not be_colorized
 
             expect(res).to be_a adapter.response if adapter.respond_to? :response
           end
@@ -105,7 +105,7 @@ describe HttpLog do
             expect(log).to include(HttpLog::LOG_PREFIX + "Status: 200")
             expect(log).to include(HttpLog::LOG_PREFIX + "Benchmark: ")
             expect(log).to include(HttpLog::LOG_PREFIX + "Response:#{adapter.expected_response_body}")
-            expect(log.colorized?).to be_falsey
+            expect(log).to_not be_colorized
 
             expect(res).to be_a adapter.response if adapter.respond_to? :response
           end
@@ -205,10 +205,16 @@ describe HttpLog do
             expect(log).to_not include(HttpLog::LOG_PREFIX + "Data:")
           end
 
-          it "should colorized output" do
+          it "should rainbow output" do
             HttpLog.configure { |c| c.color = :red }
             adapter.send_get_request
-            expect(log.colorized?).to be_truthy
+            expect(log).to be_colorized
+          end
+
+          it "should rainbow color and background output" do
+            HttpLog.configure { |c| c.color = { color: :red, background: :white } }
+            adapter.send_get_request
+            expect(log).to be_colorized
           end
 
           it "should log with custom string prefix" do
@@ -266,7 +272,7 @@ describe HttpLog do
             it "should colorized output" do
               HttpLog.configure { |c| c.color = :red }
               adapter.send_post_request
-              expect(log.colorized?).to be_truthy
+              expect(log).to be_colorized
             end
           end
         end
