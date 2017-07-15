@@ -114,7 +114,8 @@ module HttpLog
 
     def colorize(msg)
       return msg unless config.color
-      msg.send(:color, config.color)
+      return msg.send(:color, config.color) unless config.color.respond_to? :inject
+      config.color.inject(msg, :send)
     end
 
     private

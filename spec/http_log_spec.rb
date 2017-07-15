@@ -205,8 +205,14 @@ describe HttpLog do
             expect(log).to_not include(HttpLog::LOG_PREFIX + "Data:")
           end
 
-          it "should colorized output" do
+          it "should rainbow output" do
             HttpLog.configure { |c| c.color = :red }
+            adapter.send_get_request
+            expect(log).to be_colorized
+          end
+
+          it "should rainbow output with modifiers" do
+            HttpLog.configure { |c| c.color = %i[bright red] }
             adapter.send_get_request
             expect(log).to be_colorized
           end
